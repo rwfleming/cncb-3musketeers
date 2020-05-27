@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+    client:
+        image: nginx
+        ports:
+            - 8000:80
+        volumes:
+            - ./src:/usr/share/nginx/html
+    database:
+        image: percona
+        ports:
+            - 3306:3306
+        volumes:
+            - ./data:/var/lib/mysql:rw
+        env_file:
+            - ./db.env
+    data_loader:
+        image: percona
+        volumes:
+            - ./seed_database:/seed_database
+        links:
+            - database:db
+        env_file:
+            - ./db.env
+        command: /seed_database/load-schema.sh
+
