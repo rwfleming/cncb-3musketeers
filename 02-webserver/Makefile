@@ -4,20 +4,14 @@ APP_COMPOSE_FILE = ./docker-compose.yml
 
 all: run test down
 
-run:
+run: ## deploys the application
 	${COMPOSE_UP_CMD}
 
-down: 
+down: ## shuts everything down
 	${COMPOSE_DOWN_CMD}
 
-test:
+test: ## runs tests
 	make -f ./test.Makefile all
 
-help:
-	echo "Targets:"
-	echo "   run: launches the app"
-	echo "  down: destroys the app"
-	echo "  test: runs the application tests"
-	echo "   all: executes run, test, down in that order"
-	echo "  help: prints this message"
-
+help: ## prints this message
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
