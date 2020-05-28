@@ -15,7 +15,7 @@ services:
             - ./data:/var/lib/mysql:rw
         env_file:
             - ./db.env
-    data_loader:
+    data_load:
         image: percona
         volumes:
             - ./seed_database:/seed_database

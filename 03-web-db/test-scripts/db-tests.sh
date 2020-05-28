@@ -4,7 +4,6 @@
 
 MYSQL_CMD="mysql -h ${MYSQL_HOST_ADDRESS} -u${MYSQL_ROOT_USER} -p${MYSQL_ROOT_PASSWORD}"
 
-sleep 30
 echo -n "Testing Target Database exists..."
 $MYSQL_CMD -e 'SHOW DATABASES' 2>/dev/null | grep -q ${APP_DATABASE} && echo PASS || echo FAIL
 
